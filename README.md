@@ -6,7 +6,7 @@ In the project directory, you can run:
 
 ### `yarn`
 
-Add needed packages to run the app.\
+Add needed packages to run the app.
 
 ### `yarn dev --host`
 
