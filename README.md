@@ -4,6 +4,10 @@
 
 In the project directory, you can run:
 
+### `yarn`
+
+Add needed packages to run the app.
+
 ### `yarn dev --host`
 
 Runs the app in the development mode.\
