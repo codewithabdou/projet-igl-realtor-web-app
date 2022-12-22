@@ -1,5 +1,10 @@
 const IMAGES = {
-  LOGO: "/assets/images/logo.png",
+  LOGO: {
+    WHITE: "/assets/images/whiteLogo.png",
+    BLACK: "/assets/images/blackLogo.png",
+    COLOR: "/assets/images/logo.png",
+    PRIMARY: "/assets/images/primaryLogo.png",
+  },
   HOME: "/assets/images/home.jpg",
 };
 export default IMAGES;

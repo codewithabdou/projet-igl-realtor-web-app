@@ -12,7 +12,7 @@ const Home = () => {
           Is A Realtor.
         </h1>
         <button
-          className="rounded-3xl border-[1px]  border-red px-4 py-2 font-semibold text-darkBlue transition duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-sm hover:shadow-darkBlue"
+          className="rounded-3xl border-[1px]  border-secondary_2 px-4 py-2 font-semibold text-darkBlue transition duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-sm hover:shadow-darkBlue"
           onClick={auth}
         >
           Continue with Google
