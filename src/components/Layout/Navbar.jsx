@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../services";
 
 const Navbar = () => {
-  const auth = useAuth();
+  const {login,user,logout} = useAuth();
   return (
     <div className="flex h-20 w-full items-center justify-between overflow-hidden rounded-b-3xl border-b-secondary_7 border-b-[1px] bg-secondary_5 px-4 shadow-lg md:px-10">
       <div>
@@ -13,12 +13,18 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <button
+        {!user ? (        <button
           className="rounded-3xl border-[1px] border-secondary_2  bg-white px-4 py-1 font-semibold text-darkBlue transition duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-sm hover:shadow-darkBlue"
-          onClick={auth}
+          onClick={login}
         >
           Log in
-        </button>
+        </button>):(        <button
+          className="rounded-3xl border-[1px] border-secondary_2  bg-white px-4 py-1 font-semibold text-darkBlue transition duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-sm hover:shadow-darkBlue"
+          onClick={logout}
+        >
+          Log out
+        </button>)}
+
       </div>
     </div>
   );
