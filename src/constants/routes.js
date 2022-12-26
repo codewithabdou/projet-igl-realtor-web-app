@@ -1,8 +1,14 @@
 
 const ROUTES ={
-    HOME : {path : "/",name : "Home"},
-    MARKET : {path : "/market",name : "Market"},
-
+    HOME : {path : "/"},
+    MARKET : {path : "/market"},
+    FAVORITE : {path : "/favorite"},
+    MYADS : {path : "/myads"},
+    ADINFO : {path : "/adinfo"},
+    ADFORM : {path : "/adform"},
+    RECEPTION : {path : "/reception"},
+    ADMIN : {path : "/admin"},
+    SOONAV : {path : "/soonav"}
 }
 
 export default ROUTES;

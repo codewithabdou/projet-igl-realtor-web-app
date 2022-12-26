@@ -1,10 +1,15 @@
 import React, { useContext } from "react";
+import { Protected } from "../components";
 import { UserContext } from "../global/userContext";
 
 const Market = () => {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  return <div>{user.name}</div>;
+  return (
+    <Protected>
+      <div>{user?.name}</div>
+    </Protected>
+  );
 };
 
 export default Market;

@@ -1,2 +1,9 @@
-export {default as Home} from "./Home"
-export {default as Market} from "./Market"
+export { default as Home } from "./Home";
+export { default as Market } from "./Market";
+export { default as AdForm } from "./AdForm";
+export { default as AdInfo } from "./AdInfo";
+export { default as Admin } from "./Admin";
+export { default as FavoriteAds } from "./FavoriteAds";
+export { default as MyAds } from "./MyAds";
+export { default as Reception } from "./Reception";
+export { default as SoonAvailable } from "./SoonAvailable";
