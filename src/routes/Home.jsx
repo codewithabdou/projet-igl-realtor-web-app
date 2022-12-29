@@ -6,7 +6,7 @@ import { useAuth } from "../services";
 const Home = () => {
   const {login} = useAuth();
   return (
-    <div className="grid h-[calc(100vh-5rem)] grid-cols-1 items-center justify-items-center bg-[#f3f3f3] xl:grid-cols-2">
+    <div className="grid h-[calc(100vh-5rem)] grid-cols-1 items-center justify-items-center xl:grid-cols-2">
       <div className="col-span-1 flex h-full w-full flex-col items-center justify-center space-y-10 px-4 py-4">
         <h1 className="text-center text-xl font-bold text-darkBlue xl:text-5xl xl:leading-relaxed">
           No One Has More Experience Or Expertise To Help You Than An Agent Who

@@ -8,7 +8,7 @@ const Market = () => {
 
   return (
     <Protected>
-      <div className="h-[calc(100vh-5rem)] flex flex-col items-center pt-10 bg-secondary_1 gap-y-8">
+      <div className="h-[calc(100vh-5rem)] flex flex-col items-center pt-10 gap-y-8">
         <Search/>
         <Filter/>
         <div>{user?.name}</div>
