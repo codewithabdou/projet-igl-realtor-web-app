@@ -49,7 +49,7 @@ const Search = () => {
     setInputValue("");
   };
   return (
-    <div className="flex h-12 w-[80%] justify-between overflow-x-hidden rounded-lg border-[1px] border-darkBlue bg-secondary_5">
+    <div className="flex h-12 lg:w-[80%] w-[90%] justify-between overflow-x-hidden rounded-lg border-[1px] border-darkBlue bg-secondary_5">
       <div className={`flex h-full gap-2 overflow-auto p-2`}>
         {inputVisible && (
           <Input

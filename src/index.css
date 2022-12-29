@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ant-select-selection.ant-select-selection--single {
+    border-radius: 0px 8px 8px 0px;
+    height: 53px;
+}
+
+.ant-select-selection-selected-value {
+    height: 53px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.ant-select-selection__rendered {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ant-select-dropdown-menu.ant-select-dropdown-menu-root.ant-select-dropdown-menu-vertical {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ant-select-dropdown-menu-item {
+    padding: 0px;
+    margin: 0px;
+}

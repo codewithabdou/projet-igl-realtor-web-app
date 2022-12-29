@@ -25,11 +25,8 @@ const Navbar = () => {
         <div className="hidden h-full items-center justify-between space-x-20 xl:flex">
           <ul className="flex h-full items-center justify-center space-x-10">
             {(user ? AUTHITEMS : NOAUTHITEMS).map((item, index) => (
-              <Link to={item.route}>
-                <li
-                  className="relative flex h-[50%] cursor-pointer items-center justify-center space-x-2 text-lg font-semibold text-darkBlue transition duration-300 after:absolute after:top-full after:h-0.5 after:w-[80%] after:scale-x-0 after:rounded-full after:bg-secondary_2 after:transition after:duration-300 hover:-translate-y-1 hover:scale-110 hover:after:scale-x-100"
-                  key={index}
-                >
+              <Link to={item.route} key={index}>
+                <li className="relative flex h-[50%] cursor-pointer items-center justify-center space-x-2 text-lg font-semibold text-darkBlue transition duration-300 after:absolute after:top-full after:h-0.5 after:w-[80%] after:scale-x-0 after:rounded-full after:bg-secondary_2 after:transition after:duration-300 hover:-translate-y-1 hover:scale-110 hover:after:scale-x-100">
                   <div>{item.icon}</div>
                   <p>{item.name}</p>
                 </li>

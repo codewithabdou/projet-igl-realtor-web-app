@@ -18,7 +18,6 @@ import "antd/dist/reset.css";
 
 const App = () => {
   const [user, setUser] = useState(null);
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Layout>
