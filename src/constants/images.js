@@ -6,5 +6,7 @@ const IMAGES = {
     PRIMARY: "/assets/images/primaryLogo.png",
   },
   HOME: "/assets/images/home.jpg",
+  ADFORM: "/assets/images/adform.jpg",
+
 };
 export default IMAGES;

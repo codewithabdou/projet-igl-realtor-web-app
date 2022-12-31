@@ -23,6 +23,7 @@ function useAuth() {
             },
           }
         );
+        console.log(data)
         setUser(data);
         setLoading(false);
 
