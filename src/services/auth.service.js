@@ -7,13 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants";
 
 function useAuth() {
-  const { user, setUser } = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
+  const { setUser } = useContext(UserContext);
   const navigation = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      setLoading(true);
       try {
         const { data: data } = await axios.get(
           "https://www.googleapis.com/oauth2/v3/userinfo",
@@ -23,14 +22,25 @@ function useAuth() {
             },
           }
         );
-        console.log(data)
-        setUser(data);
-        setLoading(false);
+        var formdata = new FormData();
+        formdata.append("email", data.email);
+        formdata.append("first_name", data.given_name);
+        formdata.append("family_name", data.family_name);
+        formdata.append("image", data.picture);
 
-        /*
-          #send user to backend and wait for response 
-        */
-        navigation(ROUTES.MARKET.path);
+        var requestOptions = {
+          method: "POST",
+          body: formdata,
+          redirect: "follow",
+        };
+        fetch("https://annonces-immobilieres-hadjerl.vercel.app/login/", {
+          ...requestOptions,
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            tokenLogin(result);
+          })
+          .catch((error) => console.log("error", error));
       } catch (error) {
         console.log(error);
       }
@@ -38,12 +48,47 @@ function useAuth() {
   });
 
   const logout = () => {
-    googleLogout();
     navigation(ROUTES.HOME.path);
+    googleLogout();
+    localStorage.removeItem("user_tok");
     setUser(null);
   };
 
-  return { login, user, loading, logout };
+  const tokenLogin = (token) => {
+    setLoading(true);
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `token ${token}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://annonces-immobilieres-hadjerl.vercel.app/find_user/",
+      requestOptions
+    )
+      .then((response) => {
+        if (response.status === 401) {
+          logout();
+          throw Error("Invalid token");
+        }
+        return response.text();
+      })
+      .then((result) => {
+        setUser(JSON.parse(result));
+        localStorage.setItem("user_tok", token);
+        navigation(ROUTES.MARKET.path);
+      })
+      .catch((error) => console.log("error", error))
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  return { login, logout, tokenLogin, loading };
 }
 
 export default useAuth;

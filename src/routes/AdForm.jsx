@@ -69,13 +69,13 @@ const AdForm = () => {
   return (
     <div className=" grid min-h-[calc(100vh-5rem)] w-[98%] translate-x-[1%] grid-cols-1 items-center justify-items-center gap-y-4 pb-2  pt-4 md:grid-cols-2 md:pb-0">
       <div className="flex flex-col items-center justify-center gap-6 px-4">
-        <h1 className="text-center text-xl font-bold text-darkBlue xl:text-4xl xl:leading-relaxed">
+        <h1 className="text-center text-xl font-bold text-darkBlue sm:text-2xl xl:text-4xl xl:leading-relaxed">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit.
         </h1>
         <img
           src={IMAGES.ADFORM}
           alt="adform"
-          className="col-span-1 h-auto w-96 rounded-2xl object-cover shadow-lg md:shadow-2xl"
+          className="col-span-1 w-full lg:h-80 h-60 object-cover "
         />
         <p className=" font-semibold text-darkBlue md:text-center">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
@@ -85,7 +85,7 @@ const AdForm = () => {
         </p>
       </div>
       <form
-        className="relative col-span-1 flex h-[98%] w-[98%] flex-col gap-2 rounded-3xl border-[1px] border-darkBlue bg-secondary_1 px-8 pt-3 pb-8 shadow-2xl"
+        className="relative col-span-1 flex h-[97%] w-[98%] flex-col gap-2 border-darkBlue bg-secondary_1 px-8 pt-3 pb-8 shadow-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex items-center justify-between">
@@ -119,7 +119,7 @@ const AdForm = () => {
               <p className="pl-4  underline">Category :</p>
               <select
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue py-2"
-                {...register("category",{required : true})}
+                {...register("category", { required: true })}
               >
                 {categories.map((cat, index) => (
                   <option key={index} value={cat.value}>
@@ -132,7 +132,7 @@ const AdForm = () => {
               <p className="pl-4 underline">Type :</p>
               <select
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue py-2"
-                {...register("type",{required : true})}
+                {...register("type", { required: true })}
               >
                 {types.map((type, index) => (
                   <option key={index} value={type.value}>
@@ -146,14 +146,14 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"number"}
-                {...register("area",{required : true})}
+                {...register("area", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-1 text-darkBlue">
               <p className="pl-4 underline">City :</p>
               <select
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
-                {...register("city",{required : true})}
+                {...register("city", { required: true })}
               >
                 {DZ_WILAYAS.map((city, index) => (
                   <option key={index} value={city.value}>
@@ -166,7 +166,7 @@ const AdForm = () => {
               <p className="pl-4 underline">Town :</p>
               <select
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
-                {...register("town",{required : true})}
+                {...register("town", { required: true })}
               >
                 {DZ_COMMUNES[
                   Number(watch().city) - 1 ? Number(watch().city) - 1 : 0
@@ -182,7 +182,7 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"text"}
-                {...register("adress",{required : true})}
+                {...register("adress", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-1 text-darkBlue">
@@ -190,7 +190,7 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"number"}
-                {...register("price",{required : true})}
+                {...register("price", { required: true })}
               />
             </div>
           </>
@@ -201,7 +201,7 @@ const AdForm = () => {
               <textarea
                 className=" h-44 w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"text"}
-                {...register("description",{required : true})}
+                {...register("description", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-1 text-darkBlue">
@@ -209,7 +209,7 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"text"}
-                {...register("firstName",{required : true})}
+                {...register("firstName", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-1 text-darkBlue">
@@ -217,7 +217,7 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"text"}
-                {...register("lastName",{required : true})}
+                {...register("lastName", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-1 text-darkBlue">
@@ -225,7 +225,7 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"email"}
-                {...register("email",{required : true})}
+                {...register("email", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-1 text-darkBlue">
@@ -233,11 +233,14 @@ const AdForm = () => {
               <input
                 className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
                 type={"number"}
-                {...register("phoneNumber",{required : true,      maxLength : {
-                  value: 2,
-                  message: 'error message' // JS only: <p>error message</p> TS only support string
-                }})}
-                />
+                {...register("phoneNumber", {
+                  required: true,
+                  maxLength: {
+                    value: 2,
+                    message: "error message", // JS only: <p>error message</p> TS only support string
+                  },
+                })}
+              />
             </div>
           </>
         ) : (
@@ -294,10 +297,12 @@ const AdForm = () => {
                 )}
               </ImageUploading>
             </div>
-            <input
-              className="w-24 cursor-pointer self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue hover:bg-darkBlue hover:text-secondary_1"
+            <button
+              className="w-24 cursor-pointer self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue hover:bg-darkBlue hover:text-secondary_1 mb-10 transition duration-300"
               type="submit"
-            />
+            >
+              Submit
+            </button>
           </>
         )}
       </form>

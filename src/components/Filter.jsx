@@ -1,95 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Select } from "antd";
 import { DZ_COMMUNES, DZ_WILAYAS } from "../constants";
-import { format } from "date-fns";
 import DatePicker from "react-date-picker";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const Filter = () => {
+const Filter = ({
+  setSelectedCommune,
+  setSelectedType,
+  setSelectedCategory,
+  setSelectedWilayaName,
+  selectedBeforeDay,
+  setSelectedBeforeDay,
+  selectedAfterDay,
+  setSelectedAfterDay,
+}) => {
   const [selectedWilayaCode, setSelectedWilayaCode] = useState(0);
-  const [selectedWilayaName, setSelectedWilayaName] = useState(null);
-  const [selectedCommune, setSelectedCommune] = useState(null);
-  const [selectedType, setSelectedType] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedBeforeDay, setSelectedBeforeDay] = useState(null);
-  const [selectedAfterDay, setSelectedAfterDay] = useState(null);
-
-  useEffect(() => {
-    console.log(
-      selectedType,
-      selectedCommune,
-      selectedWilayaName,
-      selectedWilayaCode,
-      selectedCategory,
-      format(
-        selectedAfterDay
-          ? selectedAfterDay
-          : new Date("January 01, 2023 00:00:00"),
-        "MM/dd/yyyy"
-      ),
-      format(
-        selectedBeforeDay
-          ? selectedBeforeDay
-          : new Date("December 31, 2025 23:59:59"),
-        "MM/dd/yyyy"
-      )
-    );
-  }, [
-    selectedType,
-    selectedCommune,
-    selectedWilayaName,
-    selectedWilayaCode,
-    selectedCategory,
-    selectedAfterDay,
-    selectedBeforeDay,
-  ]);
-
   const categories = [
     {
-      value: "sale",
-      label: "Sale",
+      value: "1",
+      label: "For sale",
     },
     {
-      value: "exchange",
-      label: "Exchange",
+      value: "2",
+      label: "For rent",
     },
     {
-      value: "rental",
-      label: "Rental",
+      value: "3",
+      label: "For exchange",
     },
     {
-      value: "rental-for-holidays",
-      label: "Rental for holidays",
+      value: "4",
+      label: "Rent for vacations",
     },
   ];
 
   const types = [
     {
-      value: "land",
+      value: "1",
       label: "Land",
     },
     {
-      value: "farmland",
+      value: "2",
       label: "Farmland",
     },
     {
-      value: "apartment",
-      label: "Apartment",
+      value: "3",
+      label: "Flat",
     },
     {
-      value: "house",
+      value: "4",
       label: "House",
     },
     {
-      value: "bungalow",
+      value: "5",
       label: "Bungalow",
     },
   ];
 
   return (
-    <div className="grid w-[90%] grid-cols-2 items-center justify-items-center gap-y-4 rounded-xl border-[1px] border-darkBlue bg-secondary_5 py-8 md:grid-cols-3 lg:w-[80%]">
+    <div className="grid w-[90%] grid-cols-2 items-center justify-items-center gap-y-4 rounded-md border-[1px] border-darkBlue py-8 md:grid-cols-3 lg:w-[80%]">
       <div>
-        <p className="pl-4 pb-2 text-xs tracking-wide text-darkBlue underline">
+        <p className="pl-4 pb-2 text-sm tracking-wide text-darkBlue underline">
           City :
         </p>
 
@@ -116,7 +87,7 @@ const Filter = () => {
       </div>
 
       <div>
-        <p className="pl-4 pb-2 text-xs tracking-wide text-darkBlue underline">
+        <p className="pl-4 pb-2 text-sm tracking-wide text-darkBlue underline">
           Town :
         </p>
         <Select
@@ -139,7 +110,7 @@ const Filter = () => {
       </div>
 
       <div>
-        <p className="pl-4 pb-2 text-xs tracking-wide text-darkBlue underline">
+        <p className="pl-4 pb-2 text-sm tracking-wide text-darkBlue underline">
           Type :
         </p>
 
@@ -162,7 +133,7 @@ const Filter = () => {
         />
       </div>
       <div>
-        <p className="pl-4 pb-2 text-xs tracking-wide text-darkBlue underline">
+        <p className="pl-4 pb-2 text-sm tracking-wide text-darkBlue underline">
           Category :
         </p>
 
@@ -185,7 +156,7 @@ const Filter = () => {
         />
       </div>
       <div>
-        <p className="pl-4 pb-2 text-xs tracking-wide text-darkBlue underline">
+        <p className="pl-4 pb-2 text-sm tracking-wide text-darkBlue underline">
           Published after :
         </p>
         <DatePicker
@@ -200,7 +171,7 @@ const Filter = () => {
         />
       </div>
       <div>
-        <p className="pl-4 pb-2 text-xs tracking-wide text-darkBlue underline">
+        <p className="pl-4 pb-2 text-sm tracking-wide text-darkBlue underline">
           Published before :
         </p>
         <DatePicker

@@ -4,8 +4,7 @@ import { Input, Tag, Tooltip } from "antd";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 
-const Search = () => {
-  const [tags, setTags] = useState([]);
+const Search = ({tags,setTags}) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [editInputIndex, setEditInputIndex] = useState(-1);
@@ -22,7 +21,6 @@ const Search = () => {
   }, [inputValue]);
   const handleClose = (removedTag) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
     setTags(newTags);
   };
   const showInput = () => {
@@ -49,7 +47,7 @@ const Search = () => {
     setInputValue("");
   };
   return (
-    <div className="flex h-12 lg:w-[80%] w-[90%] justify-between overflow-x-hidden rounded-lg border-[1px] border-darkBlue bg-secondary_5">
+    <div className="flex h-12 w-[90%] justify-between overflow-x-hidden rounded-md border-[1px] border-darkBlue lg:w-[80%]">
       <div className={`flex h-full gap-2 overflow-auto p-2`}>
         {inputVisible && (
           <Input

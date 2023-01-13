@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { ROUTES, IMAGES, useNav } from "../../constants";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../services";
 import { Dropdown } from "antd";
 import { MdMenu } from "react-icons/md";
+import { UserContext } from "../../global/userContext";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user } = useContext(UserContext);
   const { AUTHITEMS, NOAUTHITEMS, AUTHMOBILEITEMS, NOAUTHMOBILEITEMS } =
     useNav();
 
   return (
-    <div className="flex h-20 w-full items-center justify-between overflow-hidden rounded-b-3xl border-b-[1px] border-b-secondary_7 bg-secondary_5 px-6 shadow-lg md:px-10">
+    <div className="sticky top-0 z-50 flex h-20 w-full items-center justify-between overflow-hidden border-b-[0.001rem] border-b-darkBlue bg-secondary_1 px-6 shadow-sm md:px-10">
       <div>
         <Link to={user ? ROUTES.MARKET.path : ROUTES.HOME.path}>
           <img
@@ -44,7 +44,6 @@ const Navbar = () => {
             selectable: true,
             defaultSelectedKeys: ["1"],
             style: {
-              backgroundColor: "#c0d5de",
               borderWidth: "1px",
               borderColor: "#6ea8bd",
             },

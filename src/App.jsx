@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Layout } from "./components";
+import { Layout, Protected } from "./components";
 import {
   Home,
   Market,
@@ -18,18 +18,61 @@ import "antd/dist/reset.css";
 
 const App = () => {
   const [user, setUser] = useState(null);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Layout>
         <Routes>
           <Route path={ROUTES.HOME.path} element={<Home />} />
-          <Route path={ROUTES.MARKET.path} element={<Market />} />
-          <Route path={ROUTES.ADFORM.path} element={<AdForm />} />
-          <Route path={ROUTES.ADINFO.path} element={<AdInfo />} />
+          <Route
+            path={ROUTES.MARKET.path}
+            element={
+              <Protected>
+                <Market />
+              </Protected>
+            }
+          />
+          <Route
+            path={ROUTES.ADFORM.path}
+            element={
+              <Protected>
+                <AdForm />
+              </Protected>
+            }
+          />
+          <Route
+            path={ROUTES.ADINFO.path}
+            element={
+              <Protected>
+                <AdInfo />
+              </Protected>
+            }
+          />
           <Route path={ROUTES.ADMIN.path} element={<Admin />} />
-          <Route path={ROUTES.FAVORITE.path} element={<FavoriteAds />} />
-          <Route path={ROUTES.MYADS.path} element={<MyAds />} />
-          <Route path={ROUTES.RECEPTION.path} element={<Reception />} />
+          <Route
+            path={ROUTES.FAVORITE.path}
+            element={
+              <Protected>
+                <FavoriteAds />
+              </Protected>
+            }
+          />
+          <Route
+            path={ROUTES.MYADS.path}
+            element={
+              <Protected>
+                <MyAds />
+              </Protected>
+            }
+          />
+          <Route
+            path={ROUTES.RECEPTION.path}
+            element={
+              <Protected>
+                <Reception />
+              </Protected>
+            }
+          />
           <Route path={ROUTES.SOONAV.path} element={<SoonAvailable />} />
         </Routes>
       </Layout>
