@@ -13,8 +13,9 @@ const Filter = ({
   setSelectedBeforeDay,
   selectedAfterDay,
   setSelectedAfterDay,
+  selectedWilayaCode,
+  setSelectedWilayaCode,
 }) => {
-  const [selectedWilayaCode, setSelectedWilayaCode] = useState(0);
   const categories = [
     {
       value: "1",
@@ -75,13 +76,13 @@ const Filter = ({
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }
           onSelect={(value) => {
-            setSelectedWilayaCode(Number(value));
+            setSelectedWilayaCode(value);
             setSelectedWilayaName(DZ_WILAYAS[Number(value) - 1].label);
           }}
           onClear={() => {
-            setSelectedWilayaCode(0);
-            setSelectedWilayaName(null);
-            setSelectedCommune(null);
+            setSelectedWilayaCode("");
+            setSelectedWilayaName("");
+            setSelectedCommune("");
           }}
         />
       </div>
@@ -95,7 +96,7 @@ const Filter = ({
           showSearch
           className="h-8 w-36"
           placeholder="Town"
-          options={DZ_COMMUNES[selectedWilayaCode - 1]}
+          options={DZ_COMMUNES[Number(selectedWilayaCode) - 1]}
           optionFilterProp="children"
           filterOption={(input, option) =>
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
@@ -104,7 +105,7 @@ const Filter = ({
             setSelectedCommune(value);
           }}
           onClear={() => {
-            setSelectedCommune(null);
+            setSelectedCommune("");
           }}
         />
       </div>
@@ -128,7 +129,7 @@ const Filter = ({
             setSelectedType(value);
           }}
           onClear={() => {
-            setSelectedType(null);
+            setSelectedType("");
           }}
         />
       </div>
@@ -151,7 +152,7 @@ const Filter = ({
             setSelectedCategory(value);
           }}
           onClear={() => {
-            setSelectedCategory(null);
+            setSelectedCategory("");
           }}
         />
       </div>

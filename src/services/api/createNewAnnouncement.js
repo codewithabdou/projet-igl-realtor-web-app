@@ -1,4 +1,4 @@
-const getAnnouncements = async (details) => {
+const createNewAnnouncement = async (details) => {
   var myHeaders = new Headers();
   myHeaders.append(
     "Authorization",
@@ -13,12 +13,11 @@ const getAnnouncements = async (details) => {
     redirect: "follow",
   };
 
-  console.log(requestOptions.body);
-  let data = [];
+  console.log(requestOptions.body)
 
   try {
     const res = await fetch(
-      "https://annonces-immobilieres-hadjerl.vercel.app/search_filter/",
+      "https://annonces-immobilieres-hadjerl.vercel.app/create/",
       {
         ...requestOptions,
       }
@@ -30,4 +29,4 @@ const getAnnouncements = async (details) => {
   }
 };
 
-export default getAnnouncements;
+export default createNewAnnouncement;
