@@ -4,16 +4,13 @@ const createNewAnnouncement = async (details) => {
     "Authorization",
     `token ${localStorage.getItem("user_tok")}`
   );
-  myHeaders.append("Content-Type", "application/json; charset=UTF-8");
 
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: JSON.stringify(details),
+    body: details,
     redirect: "follow",
   };
-
-  console.log(requestOptions.body)
 
   try {
     const res = await fetch(
@@ -22,7 +19,7 @@ const createNewAnnouncement = async (details) => {
         ...requestOptions,
       }
     );
-    data = await res.json();
+    let data = await res.json();
     return data;
   } catch (error) {
     throw error;

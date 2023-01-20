@@ -1,41 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { DZ_COMMUNES, DZ_WILAYAS } from "../constants";
+import { DZ_COMMUNES, DZ_WILAYAS, ROUTES } from "../constants";
 import ImageUploading from "react-images-uploading";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { createNewAnnouncement } from "../services";
-
-function dataURLtoFile(dataurl, filename) {
-  var arr = dataurl.split(","),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-
-  return new File([u8arr], filename, { type: mime });
-}
+import { useNavigate } from "react-router-dom";
 
 const AdForm = () => {
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const maxNumber = 10;
-
-  const allFilled = (details) => {
-    let objectKeys = Object.keys(details);
-
-    let allfilled;
-    allfilled = true;
-
-    objectKeys.forEach((key) => {
-      if (details[key].length === 0) {
-        allfilled = false;
-      }
-    });
-    return allfilled;
-  };
 
   const { register, handleSubmit, watch } = useForm();
 
@@ -47,14 +21,28 @@ const AdForm = () => {
       ...data,
       images: images.map((image) => image.file),
     };
-    console.log(details);
-    // if (allFilled(details)) {
-    //   createNewAnnouncement(details)
-    //     .then((announcement) => {
-    //       console.log(announcement);
-    //     })
-    //     .catch((e) => console.log(e));
-    // }
+
+    const formData = new FormData();
+    let objectKeys = Object.keys(details);
+
+    objectKeys.forEach((key) => {
+      if (key !== "images") formData.append(key, details[key]);
+    });
+
+    details.images.forEach((image) => {
+      formData.append("images", image, image.name);
+    });
+
+    formData.forEach((e) => {
+      console.log(e);
+    });
+
+    createNewAnnouncement(formData)
+      .then((announcement) => {
+        console.log(announcement);
+        navigate(ROUTES.MARKET);
+      })
+      .catch((e) => console.log(e));
   };
 
   const categories = [
@@ -98,9 +86,13 @@ const AdForm = () => {
       label: "Bungalow",
     },
   ];
+
   return (
     <div className="container  flex min-h-[calc(100vh-5rem)] w-[98%] translate-x-[1%] justify-center  pb-2  pt-4  md:pb-0">
-      <form className="relative col-span-1 flex h-[97%] w-[98%] flex-col gap-2 border-darkBlue bg-secondary_1 px-8 pt-3 pb-8 shadow-lg">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="relative col-span-1 flex h-[97%] w-[98%] flex-col gap-2 border-darkBlue bg-secondary_1 px-8 pt-3 pb-8 shadow-lg"
+      >
         <div className="flex flex-col gap-1 text-darkBlue">
           <p className="pl-4 underline">Title :</p>
           <input
@@ -292,7 +284,7 @@ const AdForm = () => {
         </div>
         <button
           className={`mb-10 w-24 ${"cursor-pointer"} self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue transition duration-300 hover:bg-darkBlue hover:text-secondary_1`}
-          onClick={handleSubmit(onSubmit)}
+          type="submit"
         >
           Submit
         </button>
