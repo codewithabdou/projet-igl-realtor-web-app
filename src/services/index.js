@@ -5,3 +5,5 @@ export { default as getAnnouncementInfo } from "./api/getAnnouncementInfo";
 export { default as createNewAnnouncement } from "./api/createNewAnnouncement";
 export { default as sendMessage } from "./api/sendMessage";
 export { default as getReceivedMessages } from "./api/getReceivedMessages";
+export { default as deleteAnnouncement } from "./api/deleteAnnouncement";
+export {default as autoComplete} from "./api/autoComplete"

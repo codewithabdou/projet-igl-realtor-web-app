@@ -39,7 +39,8 @@ function useAuth() {
         })
           .then((response) => response.json())
           .then((result) => {
-            tokenLogin(result,true);
+            console.log(result)
+            tokenLogin(result.token,true);
           })
           .catch((error) => console.log("error", error));
       } catch (error) {

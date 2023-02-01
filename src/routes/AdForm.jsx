@@ -3,12 +3,15 @@ import { useForm } from "react-hook-form";
 import { DZ_COMMUNES, DZ_WILAYAS, ROUTES } from "../constants";
 import ImageUploading from "react-images-uploading";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { createNewAnnouncement } from "../services";
+import { createNewAnnouncement, autoComplete } from "../services";
 import { useNavigate } from "react-router-dom";
+import { AutoComplete } from "antd";
 
 const AdForm = () => {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
+  const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
+  const [controller, setController] = useState(new AbortController());
   const maxNumber = 10;
 
   const { register, handleSubmit, watch } = useForm();
@@ -16,6 +19,34 @@ const AdForm = () => {
   const onChange = (imageList) => {
     setImages(imageList);
   };
+
+  const getNewOptions = (e) => {
+    console.log(e);
+    setAutoCompleteOptions([]);
+    setController(new AbortController());
+    if (e.length)
+      autoComplete(e, controller.signal)
+        .then((data) => {
+          const array = data.features.map((feature) => ({
+            value: feature.properties.address_line2,
+            label: feature.properties.address_line2,
+          }));
+          const deduplicatedArray = [
+            ...new Set(array.map((item) => item.value)),
+          ].map((value) => {
+            return array.find((item) => item.value === value);
+          });
+          setAutoCompleteOptions(deduplicatedArray);
+        })
+        .catch((e) => {
+          if (e.name === "AbortError") {
+            console.log("Fetch was cancelled");
+          } else {
+            console.log(e);
+          }
+        });
+  };
+
   const onSubmit = (data) => {
     const details = {
       ...data,
@@ -91,7 +122,7 @@ const AdForm = () => {
     <div className="container  flex min-h-[calc(100vh-5rem)] w-[98%] translate-x-[1%] justify-center  pb-2  pt-4  md:pb-0">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="relative col-span-1 flex h-[97%] w-[98%] flex-col gap-2 border-darkBlue bg-secondary_1 px-8 pt-3 pb-8 shadow-lg"
+        className=" flex h-[97%] w-[98%] flex-col gap-2 border-darkBlue bg-secondary_1 px-8 pt-3 pb-8 shadow-lg"
       >
         <div className="flex flex-col gap-1 text-darkBlue">
           <p className="pl-4 underline">Title :</p>
@@ -165,10 +196,19 @@ const AdForm = () => {
         </div>
         <div className="flex flex-col gap-1 text-darkBlue">
           <p className="pl-4 underline">Adress :</p>
-          <input
-            className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2"
-            type={"text"}
-            {...register("adress", { required: true })}
+          <AutoComplete
+            allowClear={true}
+            bordered={true}
+            options={autoCompleteOptions}
+            onChange={getNewOptions}
+            className="w-[98%]"
+            children={
+              <input
+                className="w-[98%] rounded-2xl border-[1px] border-darkBlue px-2 py-2 text-darkBlue"
+                type={"text"}
+                {...register("adress", { required: true })}
+              />
+            }
           />
         </div>
 

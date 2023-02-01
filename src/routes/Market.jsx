@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { GrFavorite } from "react-icons/gr";
-import { IMAGES} from "../constants";
+import { IMAGES } from "../constants";
 import { Spin } from "antd";
 
 const Market = () => {
@@ -97,19 +97,31 @@ const Market = () => {
       ) : Announcements.length ? (
         <div className="grid w-[80%] grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-2 xl:grid-cols-3">
           {Announcements?.map((Announcement, index) => (
-            <Link key={Announcement.id} to={`/adinfo/${Announcement.id}`}>
-              <div className="col-span-1 h-96 my-2 flex cursor-pointer flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <Link
+              className="w-full"
+              key={Announcement.id}
+              to={`/adinfo/${Announcement.id}`}
+            >
+              <div className="col-span-1 my-2 flex h-96 w-full cursor-pointer flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <h1 className="mx-2 text-center text-3xl font-bold ">
                   {Announcement.title}
                 </h1>
                 <div className="mx-4 h-48 w-[80%] overflow-hidden rounded-lg shadow-md">
-                  <img className="object-cover w-full h-48" src={Announcement?.images.length ? Announcement?.images[0] : IMAGES.ADFORM} alt="" />
+                  <img
+                    className="h-48 w-full object-cover"
+                    src={
+                      Announcement?.images.length
+                        ? Announcement?.images[0]
+                        : IMAGES.ADFORM
+                    }
+                    alt=""
+                  />
                 </div>
-                <p className="px-2 text-center  text-base">
-                  {Announcement.description.length > 100
-                    ? Announcement.description.substring(0, 100) + " ..."
-                    : Announcement.description}
-                </p>
+                  <p className="w-[80%] whitespace-normal overflow-clip px-2  text-base">
+                    {Announcement.description.length >= 100
+                      ? Announcement.description.substring(0, 100) + " ..."
+                      : Announcement.description}
+                  </p>
                 <div className="flex w-full items-center justify-between px-8">
                   <p className="text-gray">
                     {moment(Announcement.creation_date).startOf("ss").fromNow()}
