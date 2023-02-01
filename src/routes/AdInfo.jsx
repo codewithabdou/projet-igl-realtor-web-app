@@ -2,8 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { IMAGES } from "../constants";
-import { getAnnouncementInfo } from "../services";
+import { getAnnouncementInfo, sendMessage } from "../services";
 import { Carousel } from "react-responsive-carousel";
 import Map, { NavigationControl, Marker } from "react-map-gl";
 import maplibregl from "maplibre-gl";
@@ -13,6 +12,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 const AdInfo = () => {
   const { adid } = useParams();
   const [announcement, setAnnouncement] = useState(null);
+  const [messageValue, setMessageValue] = useState("");
 
   useEffect(() => {
     getAnnouncementInfo(adid).then((data) => {
@@ -20,6 +20,23 @@ const AdInfo = () => {
       setAnnouncement(data[0]);
     });
   }, []);
+
+  const onSendClick = () => {
+    try {
+      sendMessage({
+        sent_to: announcement.user,
+        content: messageValue,
+        title: announcement.title,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex min-h-[calc(100vh-5rem)] w-full flex-col gap-y-8 py-10 px-4 md:px-10">
       <div className="grid grid-cols-1 gap-x-4 gap-y-4 xl:grid-cols-2">
@@ -92,19 +109,28 @@ const AdInfo = () => {
           </div>
           <div className="my-4 flex w-full  flex-col gap-y-2 justify-self-center rounded-3xl border-[1px] border-darkBlue p-4">
             <label className=" text-base font-semibold text-darkBlue">
-              Your email :
-            </label>
-            <input type="email" />
-            <label className=" text-base font-semibold text-darkBlue">
               Your message :
             </label>
             <textarea
+              value={messageValue}
+              onChange={(e) => {
+                setMessageValue(e.target.value);
+              }}
               className="px-2"
               placeholder="Ex : i am interested ...."
               type="text"
             />
             <button
-              className={`mt-4 w-24 ${"cursor-pointer"} self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue transition duration-300 hover:bg-darkBlue hover:text-secondary_1`}
+              onClick={() => {
+                if (messageValue.length) onSendClick();
+              }}
+              className={`mt-4 w-24 ${
+                messageValue.length ? "cursor-pointer" : "cursor-not-allowed"
+              } self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue transition duration-300 ${
+                messageValue.length
+                  ? "hover:bg-darkBlue hover:text-secondary_1"
+                  : "hover:bg-slate-400 hover:text-secondary_1"
+              }`}
             >
               Send
             </button>

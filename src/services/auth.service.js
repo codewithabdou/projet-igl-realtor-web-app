@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants";
 
 function useAuth() {
+  const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const navigation = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ function useAuth() {
         })
           .then((response) => response.json())
           .then((result) => {
-            tokenLogin(result);
+            tokenLogin(result,true);
           })
           .catch((error) => console.log("error", error));
       } catch (error) {
@@ -54,7 +55,7 @@ function useAuth() {
     setUser(null);
   };
 
-  const tokenLogin = (token) => {
+  const tokenLogin = (token,goMarket) => {
     setLoading(true);
 
     var myHeaders = new Headers();
@@ -80,6 +81,7 @@ function useAuth() {
       .then((result) => {
         setUser(JSON.parse(result));
         localStorage.setItem("user_tok", token);
+        if(goMarket) navigate(ROUTES.MARKET.path)
       })
       .catch((error) => console.log("error", error))
       .finally(() => {

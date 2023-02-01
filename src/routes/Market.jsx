@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../global/userContext";
+import React, { useEffect, useState } from "react";
 import { Search, Filter } from "../components";
 import { getAnnouncements } from "../services";
 import { format } from "date-fns";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment/moment";
 import { GrFavorite } from "react-icons/gr";
-import { IMAGES, ROUTES } from "../constants";
+import { IMAGES} from "../constants";
 import { Spin } from "antd";
 
 const Market = () => {
-  const navigate = useNavigate();
-  const { user } = useContext(UserContext);
   const [tags, setTags] = useState([]);
   const [selectedWilayaName, setSelectedWilayaName] = useState("");
   const [selectedWilayaCode, setSelectedWilayaCode] = useState("");

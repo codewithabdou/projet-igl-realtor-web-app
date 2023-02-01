@@ -9,9 +9,9 @@ const Home = () => {
   const { login, tokenLogin, loading} = useAuth();
 
   useEffect(() => {
-    if (localStorage.getItem("user_tok")) {
-      tokenLogin(localStorage.getItem("user_tok"));
+    if (localStorage.getItem("user_tok")!==null) {
       navigate(ROUTES.MARKET.path)
+      tokenLogin(localStorage.getItem("user_tok"));
     }
   }, []);
 
