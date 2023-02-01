@@ -80,7 +80,6 @@ function useAuth() {
       .then((result) => {
         setUser(JSON.parse(result));
         localStorage.setItem("user_tok", token);
-        navigation(ROUTES.MARKET.path);
       })
       .catch((error) => console.log("error", error))
       .finally(() => {

@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
-import { IMAGES } from "../constants";
+import { IMAGES, ROUTES } from "../constants";
 import { useAuth } from "../services";
 import { Spin } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { login, tokenLogin, loading} = useAuth();
 
   useEffect(() => {
     if (localStorage.getItem("user_tok")) {
       tokenLogin(localStorage.getItem("user_tok"));
+      navigate(ROUTES.MARKET.path)
     }
   }, []);
 

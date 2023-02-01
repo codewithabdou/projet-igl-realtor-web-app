@@ -101,12 +101,12 @@ const Market = () => {
         <div className="grid w-[80%] grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-2 xl:grid-cols-3">
           {Announcements?.map((Announcement, index) => (
             <Link key={Announcement.id} to={`/adinfo/${Announcement.id}`}>
-              <div className="col-span-1 my-2 flex cursor-pointer flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="col-span-1 h-96 my-2 flex cursor-pointer flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <h1 className="mx-2 text-center text-3xl font-bold ">
                   {Announcement.title}
                 </h1>
-                <div className="mx-4 overflow-hidden rounded-lg shadow-md">
-                  <img src={IMAGES.ADFORM} alt="" />
+                <div className="mx-4 h-48 w-[80%] overflow-hidden rounded-lg shadow-md">
+                  <img className="object-cover w-full h-48" src={Announcement?.images.length ? Announcement?.images[0] : IMAGES.ADFORM} alt="" />
                 </div>
                 <p className="px-2 text-center  text-base">
                   {Announcement.description.length > 100

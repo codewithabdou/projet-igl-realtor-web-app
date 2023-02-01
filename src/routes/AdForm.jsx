@@ -40,7 +40,7 @@ const AdForm = () => {
     createNewAnnouncement(formData)
       .then((announcement) => {
         console.log(announcement);
-        navigate(ROUTES.MARKET);
+        navigate(ROUTES.MARKET.path);
       })
       .catch((e) => console.log(e));
   };
@@ -155,7 +155,7 @@ const AdForm = () => {
             {...register("commune", { required: true })}
           >
             {DZ_COMMUNES[
-              Number(watch().city) - 1 ? Number(watch().city) - 1 : 0
+              Number(watch().wilaya) - 1 ? Number(watch().wilaya) - 1 : 0
             ].map((town, index) => (
               <option key={index} value={town.value}>
                 {town.label}
