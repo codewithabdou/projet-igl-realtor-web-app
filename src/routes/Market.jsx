@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Search, Filter } from "../components";
-import { getAnnouncements } from "../services";
+import { addFavorite, getAnnouncements, removeFavorite } from "../services";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
-import { GrFavorite } from "react-icons/gr";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { IMAGES } from "../constants";
 import { Spin } from "antd";
+import { useContext } from "react";
+import { UserContext } from "../global/userContext";
 
 const Market = () => {
+  const { user } = useContext(UserContext);
   const [tags, setTags] = useState([]);
   const [selectedWilayaName, setSelectedWilayaName] = useState("");
   const [selectedWilayaCode, setSelectedWilayaCode] = useState("");
@@ -74,6 +77,45 @@ const Market = () => {
     details.wilaya,
   ]);
 
+  useEffect(() => {
+    setIsFetching(true);
+    getAnnouncements(details)
+      .then((a) => {
+        console.log(a);
+        setAnnouncements(a);
+        setIsFetching(false);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
+  const addFav = (id) => {
+    addFavorite(id).then((data) => {
+      console.log(data);
+      setIsFetching(true);
+      getAnnouncements(details)
+        .then((a) => {
+          console.log(a);
+          setAnnouncements(a);
+          setIsFetching(false);
+        })
+        .catch((e) => console.log(e));
+    });
+  };
+
+  const removeFav = (id) => {
+    removeFavorite(id).then((data) => {
+      console.log(data);
+      setIsFetching(true);
+      getAnnouncements(details)
+        .then((a) => {
+          console.log(a);
+          setAnnouncements(a);
+          setIsFetching(false);
+        })
+        .catch((e) => console.log(e));
+    });
+  };
+
   return (
     <div className="flex min-h-[calc(100vh-5rem)] flex-col items-center gap-y-8 pb-10 pt-10">
       <Search tags={tags} setTags={setTags} />
@@ -90,22 +132,24 @@ const Market = () => {
         setSelectedCommune={setSelectedCommune}
       />
 
-      {isFetching ? (
+      {isFetching  ? (
         <div className="mt-10 flex items-center justify-center">
           <Spin tip="Loading" size="large" className="text-darkBlue" />
         </div>
       ) : Announcements.length ? (
         <div className="grid w-[80%] grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-2 xl:grid-cols-3">
           {Announcements?.map((Announcement, index) => (
-            <Link
-              className="w-full"
+            <div
               key={Announcement.id}
-              to={`/adinfo/${Announcement.id}`}
+              className="col-span-1 my-2 flex h-96 w-full flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="col-span-1 my-2 flex h-96 w-full cursor-pointer flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <h1 className="mx-2 text-center text-3xl font-bold ">
-                  {Announcement.title}
-                </h1>
+              <h1 className="mx-2 text-center text-3xl font-bold ">
+                {Announcement.title}
+              </h1>
+              <Link
+                className="f flex w-full cursor-pointer items-center justify-center"
+                to={`/adinfo/${Announcement.id}`}
+              >
                 <div className="mx-4 h-48 w-[80%] overflow-hidden rounded-lg shadow-md">
                   <img
                     className="h-48 w-full object-cover"
@@ -117,19 +161,31 @@ const Market = () => {
                     alt=""
                   />
                 </div>
-                  <p className="w-[80%] whitespace-normal overflow-clip px-2  text-base">
-                    {Announcement.description.length >= 100
-                      ? Announcement.description.substring(0, 100) + " ..."
-                      : Announcement.description}
-                  </p>
-                <div className="flex w-full items-center justify-between px-8">
-                  <p className="text-gray">
-                    {moment(Announcement.creation_date).startOf("ss").fromNow()}
-                  </p>
-                  <GrFavorite size={30} />
-                </div>
+              </Link>
+              <p className="w-[80%] overflow-clip whitespace-normal px-2 text-center  text-base">
+                {Announcement.description.length >= 100
+                  ? Announcement.description.substring(0, 100) + " ..."
+                  : Announcement.description}
+              </p>
+              <div className="flex w-full items-center justify-between px-8">
+                <p className="text-gray">
+                  {moment(Announcement.creation_date).startOf("ss").fromNow()}
+                </p>
+                {Announcement.favorated_by.includes(user.id) ? (
+                  <MdFavorite
+                    onClick={() => removeFav(Announcement.id)}
+                    size={30}
+                    className="cursor-pointer text-rose-500 transition duration-300 hover:-translate-y-1 hover:scale-110 hover:text-rose-300"
+                  />
+                ) : (
+                  <MdFavoriteBorder
+                    onClick={() => addFav(Announcement.id)}
+                    size={30}
+                    className="cursor-pointer transition duration-300 hover:-translate-y-1 hover:scale-110 hover:text-rose-500"
+                  />
+                )}
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       ) : (

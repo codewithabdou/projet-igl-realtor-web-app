@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
-import { GrFavorite } from "react-icons/gr";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { IMAGES } from "../constants";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Spin, Modal } from "antd";
-import { getMyAnnouncements, deleteAnnouncement } from "../services";
+import {
+  getMyAnnouncements,
+  deleteAnnouncement,
+  removeFavorite,
+  addFavorite,
+} from "../services";
+import { useContext } from "react";
+import { UserContext } from "../global/userContext";
 
 const MyAds = () => {
+  const { user } = useContext(UserContext);
   const [Announcements, setAnnouncements] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [open, setOpen] = useState(false);
@@ -43,6 +51,30 @@ const MyAds = () => {
       })
       .catch((e) => console.log(e));
   }, []);
+
+  const addFav = (id) => {
+    addFavorite(id).then((data) => {
+      setIsFetching(true);
+      getMyAnnouncements()
+        .then((a) => {
+          setAnnouncements(a);
+          setIsFetching(false);
+        })
+        .catch((e) => console.log(e));
+    });
+  };
+
+  const removeFav = (id) => {
+    removeFavorite(id).then((data) => {
+      setIsFetching(true);
+      getMyAnnouncements()
+        .then((a) => {
+          setAnnouncements(a);
+          setIsFetching(false);
+        })
+        .catch((e) => console.log(e));
+    });
+  };
   return (
     <div className="flex min-h-[calc(100vh-5rem)] flex-col items-center gap-y-8 pb-10 pt-10">
       <h1 className="relative flex cursor-default items-center justify-center space-x-2 text-3xl font-bold text-darkBlue transition duration-300 after:absolute after:top-full after:h-0.5 after:w-[80%] after:scale-x-0 after:rounded-full after:bg-secondary_2 after:transition after:duration-300 hover:-translate-y-1 hover:scale-110 hover:after:scale-x-50">
@@ -52,7 +84,8 @@ const MyAds = () => {
         <div className="mt-10 flex items-center justify-center">
           <Spin tip="Loading" size="large" className="text-darkBlue" />
         </div>
-      ) : Announcements.length ? (
+      ) : Announcements?.filter((announcement) => !announcement.deleted)
+          .length ? (
         <div className="grid w-[80%] grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-2 xl:grid-cols-3">
           {Announcements?.filter((announcement) => !announcement.deleted).map(
             (Announcement) => (
@@ -95,7 +128,7 @@ const MyAds = () => {
                     />
                   </div>
                 </Link>
-                <p className="px-2 text-center  text-base">
+                <p className="px- w-[80%] overflow-clip whitespace-normal text-center  text-base">
                   {Announcement.description.length > 100
                     ? Announcement.description.substring(0, 100) + " ..."
                     : Announcement.description}
@@ -104,7 +137,19 @@ const MyAds = () => {
                   <p className="text-gray">
                     {moment(Announcement.creation_date).startOf("ss").fromNow()}
                   </p>
-                  <GrFavorite size={30} />
+                  {Announcement.favorated_by.includes(user.id) ? (
+                    <MdFavorite
+                      onClick={() => removeFav(Announcement.id)}
+                      size={30}
+                      className="cursor-pointer text-rose-500 transition duration-300 hover:-translate-y-1 hover:scale-110 hover:text-rose-300"
+                    />
+                  ) : (
+                    <MdFavoriteBorder
+                      onClick={() => addFav(Announcement.id)}
+                      size={30}
+                      className="cursor-pointer transition duration-300 hover:-translate-y-1 hover:scale-110 hover:text-rose-500"
+                    />
+                  )}{" "}
                 </div>
               </div>
             )

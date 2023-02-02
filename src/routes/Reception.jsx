@@ -5,7 +5,6 @@ import MessageBox from "../components/MessageBox";
 import { getReceivedMessages } from "../services";
 import { Spin } from "antd";
 
-
 const Reception = () => {
   const [messages, setMessages] = useState(null);
   useEffect(() => {
@@ -20,9 +19,13 @@ const Reception = () => {
         Reception
       </h1>
       {messages ? (
-        messages?.map((message, index) => (
-          <MessageBox key={index} details={message} />
-        ))
+        messages.length ? (
+          messages?.map((message, index) => (
+            <MessageBox key={index} details={message} />
+          ))
+        ) : (
+          <div> No announcements .</div>
+        )
       ) : (
         <div className="mt-10 flex items-center justify-center">
           <Spin tip="Loading" size="large" className="text-darkBlue" />

@@ -6,4 +6,7 @@ export { default as createNewAnnouncement } from "./api/createNewAnnouncement";
 export { default as sendMessage } from "./api/sendMessage";
 export { default as getReceivedMessages } from "./api/getReceivedMessages";
 export { default as deleteAnnouncement } from "./api/deleteAnnouncement";
-export {default as autoComplete} from "./api/autoComplete"
+export { default as autoComplete } from "./api/autoComplete";
+export { default as removeFavorite } from "./api/removeFavorite";
+export { default as addFavorite } from "./api/addFavorite";
+export { default as getFavorites } from "./api/getFavorites";

@@ -9,7 +9,6 @@ import { ROUTES } from "../constants";
 function useAuth() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const navigation = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const login = useGoogleLogin({
@@ -39,8 +38,7 @@ function useAuth() {
         })
           .then((response) => response.json())
           .then((result) => {
-            console.log(result)
-            tokenLogin(result.token,true);
+            tokenLogin(result, true);
           })
           .catch((error) => console.log("error", error));
       } catch (error) {
@@ -50,13 +48,13 @@ function useAuth() {
   });
 
   const logout = () => {
-    navigation(ROUTES.HOME.path);
+    navigate(ROUTES.HOME.path);
     googleLogout();
     localStorage.removeItem("user_tok");
     setUser(null);
   };
 
-  const tokenLogin = (token,goMarket) => {
+  const tokenLogin = (token, goMarket) => {
     setLoading(true);
 
     var myHeaders = new Headers();
@@ -82,7 +80,7 @@ function useAuth() {
       .then((result) => {
         setUser(JSON.parse(result));
         localStorage.setItem("user_tok", token);
-        if(goMarket) navigate(ROUTES.MARKET.path)
+        if (goMarket) navigate(ROUTES.MARKET.path);
       })
       .catch((error) => console.log("error", error))
       .finally(() => {
