@@ -12,7 +12,7 @@ import {
   addFavorite,
 } from "../services";
 import { useContext } from "react";
-import  UserContext  from "../global/userContext";
+import  UserContext  from "../context/userContext";
 
 const MyAds = () => {
   const { user } = useContext(UserContext);

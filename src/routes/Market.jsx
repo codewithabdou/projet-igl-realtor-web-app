@@ -8,7 +8,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { IMAGES } from "../constants";
 import { Spin } from "antd";
 import { useContext } from "react";
-import  UserContext  from "../global/userContext";
+import  UserContext  from "../context/userContext";
 
 const Market = () => {
   const { user } = useContext(UserContext);

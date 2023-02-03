@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Select, DatePicker } from "antd";
 import { DZ_COMMUNES, DZ_WILAYAS } from "../constants";
-import { useEffect } from "react";
 
 const Filter = ({
   setSelectedCommune,
