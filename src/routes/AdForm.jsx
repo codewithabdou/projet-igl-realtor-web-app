@@ -68,12 +68,13 @@ const AdForm = () => {
       console.log(e);
     });
 
-    createNewAnnouncement(formData)
-      .then((announcement) => {
-        console.log(announcement);
-        navigate(ROUTES.MARKET.path);
-      })
-      .catch((e) => console.log(e));
+    if (details.images.length > 0)
+      createNewAnnouncement(formData)
+        .then((announcement) => {
+          console.log(announcement);
+          navigate(ROUTES.MARKET.path);
+        })
+        .catch((e) => console.log(e));
   };
 
   const categories = [
@@ -288,12 +289,14 @@ const AdForm = () => {
               isDragging,
               dragProps,
             }) => (
-              // write your building UI
               <div className=" w-full">
                 <button
                   className="h-24 w-full border-b-[1px] text-darkBlue"
                   style={isDragging ? { color: "red" } : undefined}
-                  onClick={onImageUpload}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onImageUpload();
+                  }}
                   {...dragProps}
                 >
                   Click or Drop here

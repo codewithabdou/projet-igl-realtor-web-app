@@ -1,3 +1,5 @@
+import { getWilayaCommune } from "../services";
+
 const DZ_COMMUNES_ALL = [
   {
     id: 22,
@@ -10852,15 +10854,29 @@ let DZ_COMMUNES = [
 ];
 
 const convertData = () => {
-  DZ_COMMUNES_ALL.forEach((commune) => {
+  // getWilayaCommune()
+  //   .then((data) => {
+  //     DZ_WILAYAS = data.map((wilaya, index) => ({
+  //       value: (index + 1).toString(),
+  //       label: wilaya.designation,
+  //     }));
+  //     DZ_COMMUNES = data.map((wilaya) =>
+  //       wilaya.commune.map((commune) => ({
+  //         value: commune.designation,
+  //         label: commune.designation,
+  //       }))
+  //     );
+  //   })
+  //   .catch((e) => console.log(e));
 
+  DZ_COMMUNES_ALL.forEach((commune) => {
     DZ_COMMUNES[Number(commune.wilaya_code) - 1].push({
       value: commune.commune_name,
       label: commune.commune_name,
     });
 
-    if (!DZ_WILAYAS[Number(commune.wilaya_code)-1]) {
-      DZ_WILAYAS[Number(commune.wilaya_code)-1] = {
+    if (!DZ_WILAYAS[Number(commune.wilaya_code) - 1]) {
+      DZ_WILAYAS[Number(commune.wilaya_code) - 1] = {
         value: commune.wilaya_code,
         label: commune.wilaya_name,
       };

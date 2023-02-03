@@ -13,7 +13,7 @@ import {
   SoonAvailable,
 } from "./routes";
 import { ROUTES } from "./constants";
-import { UserContext } from "./global/userContext";
+import  UserContext  from "./global/userContext";
 import "antd/dist/reset.css";
 
 const App = () => {

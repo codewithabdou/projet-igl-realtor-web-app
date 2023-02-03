@@ -6,7 +6,7 @@ import { IMAGES } from "../constants";
 import { Spin } from "antd";
 import { getFavorites,addFavorite,removeFavorite } from "../services";
 import { useContext } from "react";
-import { UserContext } from "../global/userContext";
+import  UserContext  from "../global/userContext";
 
 const FavoriteAds = () => {
   const { user } = useContext(UserContext);

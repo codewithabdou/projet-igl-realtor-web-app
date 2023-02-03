@@ -4,11 +4,12 @@ import { Input, Tag, Tooltip } from "antd";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 
-const Search = ({tags,setTags}) => {
+const Search = ({ tags, setTags }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState("");
+  const [inTags, setInTags] = useState([]);
   const inputRef = useRef(null);
   const editInputRef = useRef(null);
   useEffect(() => {
@@ -19,9 +20,14 @@ const Search = ({tags,setTags}) => {
   useEffect(() => {
     editInputRef.current?.focus();
   }, [inputValue]);
+
+  const onSearchClick = () => {
+    setTags(inTags);
+  };
+
   const handleClose = (removedTag) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
-    setTags(newTags);
+    setInTags(newTags);
   };
   const showInput = () => {
     setInputVisible(true);
@@ -31,7 +37,7 @@ const Search = ({tags,setTags}) => {
   };
   const handleInputConfirm = () => {
     if (inputValue && tags.indexOf(inputValue) === -1) {
-      setTags([...tags, inputValue]);
+      setInTags([...tags, inputValue]);
     }
     setInputVisible(false);
     setInputValue("");
@@ -42,7 +48,7 @@ const Search = ({tags,setTags}) => {
   const handleEditInputConfirm = () => {
     const newTags = [...tags];
     newTags[editInputIndex] = editInputValue;
-    setTags(newTags);
+    setInTags(newTags);
     setEditInputIndex(-1);
     setInputValue("");
   };
@@ -69,7 +75,7 @@ const Search = ({tags,setTags}) => {
             <div>Add key-word</div>
           </Tag>
         )}
-        {tags.map((tag, index) => {
+        {inTags.map((tag, index) => {
           if (editInputIndex === index) {
             return (
               <Input
@@ -115,8 +121,11 @@ const Search = ({tags,setTags}) => {
           );
         })}
       </div>
-      <div className="flex min-w-[2.5rem] cursor-pointer items-center justify-center border-l-[1px] border-l-darkBlue ">
-        <FaSearch className="text-darkBlue" />
+      <div
+        onClick={onSearchClick}
+        className="flex min-w-[2.5rem] cursor-pointer items-center justify-center border-l-[1px] border-l-darkBlue text-darkBlue transition duration-300 hover:bg-darkBlue hover:text-secondary_1 "
+      >
+        <FaSearch className="transition duration-300 hover:scale-110" />
       </div>
     </div>
   );

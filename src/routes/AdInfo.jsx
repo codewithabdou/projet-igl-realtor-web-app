@@ -10,7 +10,7 @@ import { Spin } from "antd";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useContext } from "react";
-import { UserContext } from "../global/userContext";
+import  UserContext  from "../global/userContext";
 
 const AdInfo = () => {
   const { adid } = useParams();

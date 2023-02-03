@@ -1,7 +1,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useContext, useState } from "react";
 import axios from "axios";
-import { UserContext } from "../global/userContext";
+import  UserContext  from "../global/userContext";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants";

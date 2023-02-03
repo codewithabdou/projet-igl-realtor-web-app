@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 
 const autocomplete = async (adr,signal) => {
   var requestOptions = {

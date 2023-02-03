@@ -10,3 +10,4 @@ export { default as autoComplete } from "./api/autoComplete";
 export { default as removeFavorite } from "./api/removeFavorite";
 export { default as addFavorite } from "./api/addFavorite";
 export { default as getFavorites } from "./api/getFavorites";
+export { default as getWilayaCommune } from "./api/getWilayaCommune";

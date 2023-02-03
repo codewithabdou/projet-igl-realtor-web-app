@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Select } from "antd";
+import { Select, DatePicker } from "antd";
 import { DZ_COMMUNES, DZ_WILAYAS } from "../constants";
-import DatePicker from "react-date-picker";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { useEffect } from "react";
 
 const Filter = ({
   setSelectedCommune,
@@ -161,14 +160,9 @@ const Filter = ({
           Published after :
         </p>
         <DatePicker
-          calendarClassName={"border-[1px] rounded-xl"}
-          clearIcon={<AiFillCloseCircle className="cursor-pointer" size={15} />}
-          calendarIcon={null}
-          className="h-8 w-36 bg-white"
-          onChange={(day) => {
-            setSelectedAfterDay(day);
+          onChange={(date, _) => {
+            setSelectedAfterDay(date?.toDate());
           }}
-          value={selectedAfterDay}
         />
       </div>
       <div>
@@ -176,14 +170,9 @@ const Filter = ({
           Published before :
         </p>
         <DatePicker
-          calendarClassName={"border-[1px] rounded-xl"}
-          clearIcon={<AiFillCloseCircle className="cursor-pointer" size={15} />}
-          calendarIcon={null}
-          className="h-8 w-36 bg-white"
-          onChange={(day) => {
-            setSelectedBeforeDay(day);
+          onChange={(date, _) => {
+            setSelectedBeforeDay(date?.toDate());
           }}
-          value={selectedBeforeDay}
         />
       </div>
     </div>
