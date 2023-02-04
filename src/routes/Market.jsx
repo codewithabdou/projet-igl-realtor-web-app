@@ -62,7 +62,6 @@ const Market = () => {
     setIsFetching(true);
     getAnnouncements(details)
       .then((a) => {
-        console.log(a);
         setAnnouncements(a);
         setIsFetching(false);
       })
@@ -81,7 +80,6 @@ const Market = () => {
     setIsFetching(true);
     getAnnouncements(details)
       .then((a) => {
-        console.log(a);
         setAnnouncements(a);
         setIsFetching(false);
       })
@@ -90,11 +88,9 @@ const Market = () => {
 
   const addFav = (id) => {
     addFavorite(id).then((data) => {
-      console.log(data);
       setIsFetching(true);
       getAnnouncements(details)
         .then((a) => {
-          console.log(a);
           setAnnouncements(a);
           setIsFetching(false);
         })
@@ -104,11 +100,9 @@ const Market = () => {
 
   const removeFav = (id) => {
     removeFavorite(id).then((data) => {
-      console.log(data);
       setIsFetching(true);
       getAnnouncements(details)
         .then((a) => {
-          console.log(a);
           setAnnouncements(a);
           setIsFetching(false);
         })

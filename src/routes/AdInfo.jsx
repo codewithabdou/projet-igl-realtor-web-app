@@ -20,7 +20,6 @@ const AdInfo = () => {
 
   useEffect(() => {
     getAnnouncementInfo(adid).then((data) => {
-      console.log(data[0]);
       setAnnouncement(data[0]);
     });
   }, []);

@@ -21,7 +21,6 @@ const AdForm = () => {
   };
 
   const getNewOptions = (e) => {
-    console.log(e);
     setAutoCompleteOptions([]);
     setController(new AbortController());
     if (e.length)
@@ -64,14 +63,11 @@ const AdForm = () => {
       formData.append("images", image, image.name);
     });
 
-    formData.forEach((e) => {
-      console.log(e);
-    });
+
 
     if (details.images.length > 0)
       createNewAnnouncement(formData)
         .then((announcement) => {
-          console.log(announcement);
           navigate(ROUTES.MARKET.path);
         })
         .catch((e) => console.log(e));
