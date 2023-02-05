@@ -3,7 +3,7 @@ import { ROUTES, IMAGES, useNav } from "../../constants";
 import { Link } from "react-router-dom";
 import { Dropdown } from "antd";
 import { MdMenu } from "react-icons/md";
-import  UserContext  from "../../context/userContext";
+import  UserContext  from "../../context/UserContext";
 
 const Navbar = () => {
   const { user } = useContext(UserContext);

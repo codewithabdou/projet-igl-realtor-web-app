@@ -20,7 +20,6 @@ const sendMessage = async (details) => {
       { ...requestOptions }
     );
     const ret = await res.json();
-    console.log(ret)
   } catch (error) {
     throw error;
   }

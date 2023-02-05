@@ -13,14 +13,14 @@ import {
   SoonAvailable,
 } from "./routes";
 import { ROUTES } from "./constants";
-import  UserContext  from "./context/userContext";
+import  UserContextTest  from "./context/UserContext";
 import "antd/dist/reset.css";
 
 const App = () => {
   const [user, setUser] = useState(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContextTest.Provider value={{ user, setUser }}>
       <Layout>
         <Routes>
           <Route path={ROUTES.HOME.path} element={<Home />} />
@@ -76,7 +76,7 @@ const App = () => {
           <Route path={ROUTES.SOONAV.path} element={<SoonAvailable />} />
         </Routes>
       </Layout>
-    </UserContext.Provider>
+    </UserContextTest.Provider>
   );
 };
 

@@ -9,7 +9,7 @@ import 'antd/dist/reset.css';
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HashRouter>
-        <GoogleOAuthProvider clientId="263472488704-rbtb895n6km7s82asa1fbsqgk7iupcn5.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="263472488704-ultad9gpfegen1mga0v9k69id5crnt2a.apps.googleusercontent.com">
           <App />
         </GoogleOAuthProvider>
     </HashRouter>

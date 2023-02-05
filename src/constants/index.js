@@ -1,5 +1,5 @@
 
-import { DZ_COMMUNES,DZ_WILAYAS } from "./Dz-communes";
+import { DZ_COMMUNES,DZ_WILAYAS } from "./dz-communes";
 
 export { default as ROUTES } from "./routes";
 export { default as IMAGES } from "./images";

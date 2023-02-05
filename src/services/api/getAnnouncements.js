@@ -13,7 +13,6 @@ const getAnnouncements = async (details) => {
     redirect: "follow",
   };
 
-  console.log(requestOptions.body);
   let data = [];
 
   try {
