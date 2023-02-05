@@ -24,7 +24,7 @@ const Reception = () => {
             <MessageBox key={index} details={message} />
           ))
         ) : (
-          <div> No announcements .</div>
+          <div> No messages .</div>
         )
       ) : (
         <div className="mt-10 flex items-center justify-center">
