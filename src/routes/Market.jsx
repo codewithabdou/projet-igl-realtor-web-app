@@ -8,7 +8,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { IMAGES } from "../constants";
 import { Spin } from "antd";
 import { useContext } from "react";
-import  UserContext  from "../context/UserContext";
+import UserContext from "../context/UserContext";
 
 const Market = () => {
   const { user } = useContext(UserContext);
@@ -126,7 +126,7 @@ const Market = () => {
         setSelectedCommune={setSelectedCommune}
       />
 
-      {isFetching  ? (
+      {isFetching ? (
         <div className="mt-10 flex items-center justify-center">
           <Spin tip="Loading" size="large" className="text-darkBlue" />
         </div>
@@ -135,7 +135,7 @@ const Market = () => {
           {Announcements?.map((Announcement, index) => (
             <div
               key={Announcement.id}
-              className="col-span-1 my-2 flex h-96 w-full flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="min-h-96 col-span-1 my-2 flex w-full flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <h1 className="mx-2 text-center text-3xl font-bold ">
                 {Announcement.title}
@@ -156,9 +156,9 @@ const Market = () => {
                   />
                 </div>
               </Link>
-              <p className="w-[80%] overflow-clip whitespace-normal px-2 text-center  text-base">
-                {Announcement.description.length >= 100
-                  ? Announcement.description.substring(0, 100) + " ..."
+              <p className="w-[80%]  overflow-clip whitespace-normal px-2 text-center  text-base">
+                {Announcement.description.length >= 50
+                  ? Announcement.description.substring(0, 50) + " ..."
                   : Announcement.description}
               </p>
               <div className="flex w-full items-center justify-between px-8">

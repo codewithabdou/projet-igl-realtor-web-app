@@ -4,9 +4,9 @@ import moment from "moment/moment";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { IMAGES } from "../constants";
 import { Spin } from "antd";
-import { getFavorites,addFavorite,removeFavorite } from "../services";
+import { getFavorites, addFavorite, removeFavorite } from "../services";
 import { useContext } from "react";
-import  UserContext  from "../context/UserContext";
+import UserContext from "../context/UserContext";
 
 const FavoriteAds = () => {
   const { user } = useContext(UserContext);
@@ -62,7 +62,7 @@ const FavoriteAds = () => {
             (Announcement) => (
               <div
                 key={Announcement.id}
-                className="col-span-1 my-2 flex h-96 w-full flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="min-h-96 col-span-1 my-2 flex w-full flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 <h1 className="mx-2 text-center text-3xl font-bold ">
                   {Announcement.title}
@@ -96,7 +96,7 @@ const FavoriteAds = () => {
                     <MdFavorite
                       onClick={() => removeFav(Announcement.id)}
                       size={30}
-                      className="cursor-pointer transition duration-300 hover:-translate-y-1 hover:scale-110 hover:text-rose-300 text-rose-500"
+                      className="cursor-pointer text-rose-500 transition duration-300 hover:-translate-y-1 hover:scale-110 hover:text-rose-300"
                     />
                   ) : (
                     <MdFavoriteBorder

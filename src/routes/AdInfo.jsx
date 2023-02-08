@@ -10,13 +10,15 @@ import { Spin } from "antd";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useContext } from "react";
-import  UserContext  from "../context/UserContext";
+import UserContext from "../context/UserContext";
+import { clearConfigCache } from "prettier";
 
 const AdInfo = () => {
   const { adid } = useParams();
   const { user } = useContext(UserContext);
   const [announcement, setAnnouncement] = useState(null);
   const [messageValue, setMessageValue] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     getAnnouncementInfo(adid).then((data) => {
@@ -24,13 +26,17 @@ const AdInfo = () => {
     });
   }, []);
 
-  const onSendClick = () => {
+  const onSendClick = (e) => {
+    setIsSending(true);
     try {
       sendMessage({
         sent_to: announcement.user,
         content: messageValue,
         title: announcement.title,
       });
+      setTimeout(() => {
+        setIsSending(false);
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
@@ -129,11 +135,11 @@ const AdInfo = () => {
                     type="text"
                   />
                   <button
-                    onClick={() => {
-                      if (messageValue.length) onSendClick();
+                    onClick={(e) => {
+                      if (messageValue.length) onSendClick(e);
                     }}
                     className={`mt-4 w-24 ${
-                      messageValue.length
+                      messageValue.length && !isSending
                         ? "cursor-pointer"
                         : "cursor-not-allowed"
                     } self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue transition duration-300 ${
@@ -142,7 +148,7 @@ const AdInfo = () => {
                         : "hover:bg-slate-400 hover:text-secondary_1"
                     }`}
                   >
-                    Send
+                    {isSending ? "Sending ..." : "Send"}
                   </button>
                 </div>
               )}

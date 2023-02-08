@@ -26,7 +26,7 @@ const Search = ({ tags, setTags }) => {
   };
 
   const handleClose = (removedTag) => {
-    const newTags = tags.filter((tag) => tag !== removedTag);
+    const newTags = inTags.filter((tag) => tag !== removedTag);
     setInTags(newTags);
   };
   const showInput = () => {
@@ -36,8 +36,8 @@ const Search = ({ tags, setTags }) => {
     setInputValue(e.target.value);
   };
   const handleInputConfirm = () => {
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      setInTags([...tags, inputValue]);
+    if (inputValue && inTags.indexOf(inputValue) === -1) {
+      setInTags([...inTags, inputValue]);
     }
     setInputVisible(false);
     setInputValue("");
@@ -46,7 +46,7 @@ const Search = ({ tags, setTags }) => {
     setEditInputValue(e.target.value);
   };
   const handleEditInputConfirm = () => {
-    const newTags = [...tags];
+    const newTags = [...inTags];
     newTags[editInputIndex] = editInputValue;
     setInTags(newTags);
     setEditInputIndex(-1);

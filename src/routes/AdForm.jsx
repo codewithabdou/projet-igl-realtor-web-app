@@ -10,6 +10,7 @@ import { AutoComplete } from "antd";
 const AdForm = () => {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
+  const [isCreating, setIsCreating] = useState(false);
   const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
   const [controller, setController] = useState(new AbortController());
   const maxNumber = 10;
@@ -63,14 +64,15 @@ const AdForm = () => {
       formData.append("images", image, image.name);
     });
 
-
-
-    if (details.images.length > 0)
+    if (details.images.length > 0) {
+      setIsCreating(true);
       createNewAnnouncement(formData)
         .then((announcement) => {
           navigate(ROUTES.MARKET.path);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => console.log(e))
+        .finally(() => setIsCreating(false));
+    }
   };
 
   const categories = [
@@ -322,10 +324,12 @@ const AdForm = () => {
           </ImageUploading>
         </div>
         <button
-          className={`mb-10 w-24 ${"cursor-pointer"} self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue transition duration-300 hover:bg-darkBlue hover:text-secondary_1`}
+          className={`mb-10 w-fit px-4 py-1 ${
+            !isCreating ? "cursor-pointer" : "cursor-not-allowed"
+          } self-center rounded-full border-2 border-darkBlue py-1 px-2 font-semibold text-darkBlue transition duration-300 hover:bg-darkBlue hover:text-secondary_1`}
           type="submit"
         >
-          Submit
+          {!isCreating ? "Submit" : "Creating ..."}
         </button>
       </form>
     </div>

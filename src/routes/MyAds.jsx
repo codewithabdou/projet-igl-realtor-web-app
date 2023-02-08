@@ -12,7 +12,7 @@ import {
   addFavorite,
 } from "../services";
 import { useContext } from "react";
-import  UserContext  from "../context/UserContext";
+import UserContext from "../context/UserContext";
 
 const MyAds = () => {
   const { user } = useContext(UserContext);
@@ -91,7 +91,7 @@ const MyAds = () => {
             (Announcement) => (
               <div
                 key={Announcement.id}
-                className="relative col-span-1 my-2 flex  flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="min-h-96 relative col-span-1 my-2 flex  flex-col items-center justify-center gap-y-4 rounded-3xl border-[1px] border-darkBlue bg-white py-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 <Modal
                   title={`Do you really want to delete <${adToDelete?.title}> ?`}
@@ -129,8 +129,8 @@ const MyAds = () => {
                   </div>
                 </Link>
                 <p className="px- w-[80%] overflow-clip whitespace-normal text-center  text-base">
-                  {Announcement.description.length > 100
-                    ? Announcement.description.substring(0, 100) + " ..."
+                  {Announcement.description.length > 50
+                    ? Announcement.description.substring(0, 50) + " ..."
                     : Announcement.description}
                 </p>
                 <div className="flex w-full items-center justify-between px-8">
